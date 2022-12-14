@@ -1,0 +1,46 @@
+{
+  "name": "@nycopportunity/screeningapi-docs",
+  "version": "2.0.2",
+  "title": "NYC Benefits Platform | Screening API",
+  "description": "Screen clients for benefits at scale or create new benefits screening tools. Send household composition data to eligibility rules for 35+ City, State, and Federal programs including SNAP, Cash Assistance, WIC, HEAP, and more.",
+  "author": "The Mayor's Office for Economic Opportunity",
+  "license": "GPL-3.0",
+  "private": true,
+  "homepage": "https://screeningapidocs.cityofnewyork.us",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CityOfNewYork/screeningapi-docs"
+  },
+  "bugs": {
+    "url": "https://github.com/CityOfNewYork/screeningapi-docs/issues"
+  },
+  "cdn": {
+    "base": {
+      "raw": "https://raw.githubusercontent.com/CityOfNewYork/screeningapi-docs/",
+      "source": "https://github.com/CityOfNewYork/screeningapi-docs/tree/"
+    },
+    "content": {
+      "development": "drafts",
+      "production": "content"
+    }
+  },
+  "main": "npm start",
+  "scripts": {
+    "build": "npm run build:drafts && npm run build:published",
+    "build:drafts": "NODE_ENV=development pttrn -np -nl -s",
+    "build:published": "NODE_ENV=production pttrn -np -nl -s",
+    "start": "npm run build:drafts && NODE_ENV=development PORT=7000 concurrently \"pttrn -w\" \"pttrn serve -w\" -p \"none\"",
+    "production": "npm run build:published && NODE_ENV=production PORT=7000 concurrently \"pttrn -w\" \"pttrn serve -w\" -p \"none\"",
+    "ghpages": "npm run build:published && NODE_ENV=production pttrn publish",
+    "purge": "curl -X POST https://purge.jsdelivr.net/gh/CityOfNewYork/screeningapi-docs@content"
+  },
+  "devDependencies": {
+    "@nycopportunity/pttrn": "^1.0.3",
+    "@nycopportunity/pttrn-plugin-feather": "^1.0.2",
+    "@nycopportunity/pttrn-plugin-twig": "^1.0.2"
+  },
+  "dependencies": {
+    "@nycopportunity/patterns": "^2.6.10",
+    "@nycopportunity/pttrn-scripts": "^1.0.1"
+  }
+}
